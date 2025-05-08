@@ -1,107 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blooket Blook Bookmarklet</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blooket - Use Every Blook</title>
   <style>
     body {
-      background-color: #121212;
+      background: #1a1a1a;
       color: white;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
+      font-family: sans-serif;
       text-align: center;
-      padding: 20px;
+      padding: 50px;
     }
-
     h1 {
-      color: #00ffcc;
-      margin-bottom: 20px;
+      color: #00ccff;
     }
-
-    p {
-      color: #ccc;
-      max-width: 600px;
-      font-size: 15px;
-    }
-
     button {
-      background-color: #ffaa00;
+      background: #ffaa00;
       border: none;
-      padding: 12px 24px;
-      border-radius: 8px;
+      padding: 12px 20px;
       font-size: 18px;
+      border-radius: 6px;
       cursor: pointer;
     }
-
     button:hover {
-      background-color: #e69500;
+      background: #e69500;
     }
-
-    #bookmarkletCode {
-      margin-top: 20px;
-      background: #333;
-      border-radius: 6px;
-      padding: 15px;
-      width: 100%;
-      max-width: 700px;
-      color: #00ffcc;
-      display: none;
-      overflow-x: auto;
-    }
-
-    pre {
-      white-space: pre-wrap;
-      word-break: break-word;
-      margin: 0;
-    }
-
     .copied {
-      margin-top: 10px;
+      margin-top: 20px;
       color: limegreen;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h1>Blooket Bookmarklet Tool</h1>
-  <p>Click and hold the button below to copy a JavaScript bookmarklet that simulates using all Blooks in your local UI. Then paste it into your browser's bookmarks bar.</p>
-
-  <button onmousedown="showCode()">Use Every Blook</button>
-
-  <div id="bookmarkletCode">
-    <pre><code id="codeText">javascript:(function(){alert('This is a placeholder - insert real code here');})();</code></pre>
-  </div>
+  <h1>Blooket Cheat Tool</h1>
+  <p>Click the button below to copy the "Use Every Blook" cheat code.<br>Paste it into your browser's bookmarks bar.</p>
+  <button onclick="copyCheat()">Use Every Blook</button>
   <div class="copied" id="copiedText"></div>
 
   <script>
-    function showCode() {
-      const codeBlock = document.getElementById('bookmarkletCode');
-      const codeText = document.getElementById('codeText');
-      const copiedText = document.getElementById('copiedText');
+    function copyCheat() {
+      const code = `javascript:(() => {
+  let blooks = Object.keys(require('webpack').c)
+    .find(x => Object.values(require('webpack').c[x].exports).some(y => y?.toString().includes('UFO')))
+  let gameState = Object.values(require('webpack').c[blooks].exports).find(x => x?.toString().includes('UFO'))?.__proto__?.stateNode;
+  if (gameState) {
+    gameState.setState({ unlockedBlooks: Object.keys(gameState.props.client.blooks) });
+    alert('All Blooks unlocked (visual only).');
+  } else {
+    alert('Failed to unlock Blooks. Are you in a game?');
+  }
+})();`;
 
-      codeBlock.style.display = 'block';
+      const temp = document.createElement('textarea');
+      temp.value = code;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
 
-      const range = document.createRange();
-      range.selectNodeContents(codeText);
-      const selection = window.getSelection();
-      selection.removeAllRanges();
-      selection.addRange(range);
-
-      try {
-        const successful = document.execCommand('copy');
-        copiedText.textContent = successful
-          ? 'Copied! Paste it into your bookmarks bar.'
-          : 'Press Ctrl+C to copy manually.';
-      } catch (err) {
-        copiedText.textContent = 'Press Ctrl+C to copy manually.';
-      }
-
-      setTimeout(() => selection.removeAllRanges(), 1000);
+      document.getElementById('copiedText').textContent = 'Cheat code copied to clipboard!';
     }
   </script>
 </body>
