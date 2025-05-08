@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Blooket - Use Every Blook</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blooket - Use Every Blook Cheat Tool</title>
   <style>
     body {
-      background: #1a1a1a;
+      background-color: #1a1a1a;
       color: white;
-      font-family: sans-serif;
+      font-family: Arial, sans-serif;
       text-align: center;
       padding: 50px;
     }
@@ -16,15 +16,15 @@
       color: #00ccff;
     }
     button {
-      background: #ffaa00;
+      background-color: #ffaa00;
       border: none;
-      padding: 12px 20px;
+      padding: 12px 24px;
       font-size: 18px;
       border-radius: 6px;
       cursor: pointer;
     }
     button:hover {
-      background: #e69500;
+      background-color: #e69500;
     }
     .copied {
       margin-top: 20px;
@@ -34,33 +34,34 @@
   </style>
 </head>
 <body>
-  <h1>Blooket Cheat Tool</h1>
-  <p>Click the button below to copy the "Use Every Blook" cheat code.<br>Paste it into your browser's bookmarks bar.</p>
-  <button onclick="copyCheat()">Use Every Blook</button>
+  <h1>Blooket Bookmarklet Tool</h1>
+  <p>Click the button below to copy the cheat code for unlocking every Blook in a Blooket game.</p>
+  <button onclick="copyCheatCode()">Use Every Blook</button>
   <div class="copied" id="copiedText"></div>
 
   <script>
-    function copyCheat() {
-      const code = `javascript:(() => {
-  let blooks = Object.keys(require('webpack').c)
-    .find(x => Object.values(require('webpack').c[x].exports).some(y => y?.toString().includes('UFO')))
-  let gameState = Object.values(require('webpack').c[blooks].exports).find(x => x?.toString().includes('UFO'))?.__proto__?.stateNode;
-  if (gameState) {
-    gameState.setState({ unlockedBlooks: Object.keys(gameState.props.client.blooks) });
-    alert('All Blooks unlocked (visual only).');
-  } else {
-    alert('Failed to unlock Blooks. Are you in a game?');
-  }
-})();`;
+    function copyCheatCode() {
+      const code = `javascript:(function(){  
+        const gameState = window.gameState;  // Reference to the gameState object
+        if (gameState) {
+          // Set unlockedBlooks to all available blooks
+          gameState.setState({ unlockedBlooks: Object.keys(gameState.props.client.blooks) });
+          alert('All Blooks unlocked!');
+        } else {
+          alert('Failed to find game state. Ensure you are in a game.');
+        }
+      })();`;
 
+      // Create a temporary textarea to hold the bookmarklet code
       const temp = document.createElement('textarea');
       temp.value = code;
       document.body.appendChild(temp);
-      temp.select();
-      document.execCommand('copy');
-      document.body.removeChild(temp);
+      temp.select();  // Select the text
+      document.execCommand('copy');  // Copy to clipboard
+      document.body.removeChild(temp);  // Remove the textarea after copying
 
-      document.getElementById('copiedText').textContent = 'Cheat code copied to clipboard!';
+      // Provide feedback to the user that the code has been copied
+      document.getElementById('copiedText').textContent = 'Cheat code copied to clipboard! Now paste it into your bookmarks bar.';
     }
   </script>
 </body>
