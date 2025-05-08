@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blooket Blook Bookmarklet</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #00ffcc;
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: #ccc;
+      max-width: 600px;
+      font-size: 15px;
+    }
+
+    button {
+      background-color: #ffaa00;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #e69500;
+    }
+
+    #bookmarkletCode {
+      margin-top: 20px;
+      background: #333;
+      border-radius: 6px;
+      padding: 15px;
+      width: 100%;
+      max-width: 700px;
+      color: #00ffcc;
+      display: none;
+      overflow-x: auto;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin: 0;
+    }
+
+    .copied {
+      margin-top: 10px;
+      color: limegreen;
+    }
+  </style>
+</head>
+<body>
+  <h1>Blooket Bookmarklet Tool</h1>
+  <p>Click and hold the button below to copy a JavaScript bookmarklet that simulates using all Blooks in your local UI. Then paste it into your browser's bookmarks bar.</p>
+
+  <button onmousedown="showCode()">Use Every Blook</button>
+
+  <div id="bookmarkletCode">
+    <pre><code id="codeText">javascript:(function(){alert('This is a placeholder - insert real code here');})();</code></pre>
+  </div>
+  <div class="copied" id="copiedText"></div>
+
+  <script>
+    function showCode() {
+      const codeBlock = document.getElementById('bookmarkletCode');
+      const codeText = document.getElementById('codeText');
+      const copiedText = document.getElementById('copiedText');
+
+      codeBlock.style.display = 'block';
+
+      const range = document.createRange();
+      range.selectNodeContents(codeText);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+
+      try {
+        const successful = document.execCommand('copy');
+        copiedText.textContent = successful
+          ? 'Copied! Paste it into your bookmarks bar.'
+          : 'Press Ctrl+C to copy manually.';
+      } catch (err) {
+        copiedText.textContent = 'Press Ctrl+C to copy manually.';
+      }
+
+      setTimeout(() => selection.removeAllRanges(), 1000);
+    }
+  </script>
+</body>
+</html>
